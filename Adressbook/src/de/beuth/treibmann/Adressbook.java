@@ -33,7 +33,6 @@ public class Adressbook implements AdressbookInterface {
 	 * 
 	 * @see de.beuth.treibmann.AdressbookInterface#getDetails(java.lang.String)
 	 */
-	@Override
 	public Contactdetails getDetails(String key) {
 		// TODO Auto-generated method stub
 		return null;
@@ -44,7 +43,7 @@ public class Adressbook implements AdressbookInterface {
 	 * 
 	 * @see de.beuth.treibmann.AdressbookInterface#keyInUse(java.lang.String)
 	 */
-	@Override
+	 
 	public boolean keyInUse(String vorname, String nachname, ObservableList<Contactdetails> dataKey) {
 		for (Contactdetails contactdetails : dataKey) {
 
@@ -62,7 +61,7 @@ public class Adressbook implements AdressbookInterface {
 	 * de.beuth.treibmann.AdressbookInterface#addDetails(de.beuth.treibmann.
 	 * Contactdetails)
 	 */
-	@Override
+	 
 	public boolean addDetails(ArrayList<TextField> textfield, BenutzerOberflaeche bnf) {
 
 		boolean isRichtig = false;
@@ -142,7 +141,7 @@ public class Adressbook implements AdressbookInterface {
 	 * de.beuth.treibmann.AdressbookInterface#changeDetails(java.lang.String,
 	 * de.beuth.treibmann.Contactdetails)
 	 */
-	@Override
+	 
 	public void changeDetails(String oldKey, Contactdetails newDetails) {
 		// TODO Auto-generated method stub
 
@@ -153,7 +152,7 @@ public class Adressbook implements AdressbookInterface {
 	 * 
 	 * @see de.beuth.treibmann.AdressbookInterface#search(java.lang.String)
 	 */
-	@Override
+	 
 	public void search(ObservableList<Contactdetails> data1, TextField search, TableView<Contactdetails> table) {
 
 		// 1. Wrap the ObservableList in a FilteredList (initially display all
@@ -204,7 +203,7 @@ public class Adressbook implements AdressbookInterface {
 	 * 
 	 * @see de.beuth.treibmann.AdressbookInterface#getNumberOfEntries()
 	 */
-	@Override
+	 
 	public int getNumberOfEntries() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -216,7 +215,7 @@ public class Adressbook implements AdressbookInterface {
 	 * @see
 	 * de.beuth.treibmann.AdressbookInterface#removeDetails(java.lang.String)
 	 */
-	@Override
+	 
 	public void removeDetails(String key) {
 		// TODO Auto-generated method stub
 
