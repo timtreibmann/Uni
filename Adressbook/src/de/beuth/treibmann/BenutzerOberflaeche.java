@@ -6,8 +6,6 @@ package de.beuth.treibmann;
 import java.util.ArrayList;
 
 import javafx.application.Application;
-
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -17,12 +15,15 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -34,10 +35,12 @@ import javafx.util.Callback;
  * @author tim treibmann
  *
  */
+
 public class BenutzerOberflaeche extends Application {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private TableView<Contactdetails> table = new TableView();
+	
 	// private ObservableList<Contactdetails> data;
 	private Adressbook adressbook;
 	private final TextField addVorName;
@@ -56,6 +59,7 @@ public class BenutzerOberflaeche extends Application {
 	@SuppressWarnings("rawtypes")
 	private TableColumn telefonnumber;
 	private ArrayList<TextField> listeEingabeFelder;
+	private TreeView<String> tree;
 
 	@SuppressWarnings("rawtypes")
 	public BenutzerOberflaeche() {
@@ -98,6 +102,8 @@ public class BenutzerOberflaeche extends Application {
 
 	final HBox hb = new HBox();
 
+	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -114,6 +120,22 @@ public class BenutzerOberflaeche extends Application {
 		stage.setWidth(730);
 		stage.setHeight(600);
 
+		final ListView listView = new ListView(adressbook.getData());
+		
+		
+		 TreeItem<String> rootItem = new TreeItem<String>("Kontakte");
+		 rootItem.setExpanded(false);
+		 for (Contactdetails cd : adressbook.getData()) {
+			 TreeItem<String> ersternode = new TreeItem<String>(cd.getName());
+			 ersternode.getChildren().add(new TreeItem<String> (cd.getVorname()));
+			 ersternode.getChildren().add(new TreeItem<String> (cd.getEmail()));
+			 ersternode.getChildren().add(new TreeItem<String> (cd.getAdresse()));
+			 ersternode.getChildren().add(new TreeItem<String> (cd.getTelefonnummer()));
+			 rootItem.getChildren().add(ersternode);
+		}
+		 TreeView<String> tree = new TreeView<String>(rootItem);
+		
+		
 		final Label label = new Label("Addressbuch");
 		label.setFont(new Font("Arial", 20));
 
@@ -275,8 +297,10 @@ public class BenutzerOberflaeche extends Application {
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
 		vbox.getChildren().addAll(hboxOben, table, hb);
+		final HBox hboxSuper = new HBox();
+		hboxSuper.getChildren().addAll(listView,vbox,tree);
 
-		((Group) scene.getRoot()).getChildren().addAll(vbox);
+		((Group) scene.getRoot()).getChildren().addAll(hboxSuper);
 
 		stage.setScene(scene);
 		stage.show();
