@@ -133,7 +133,7 @@ public class BenutzerOberflaeche extends Application {
 			 ersternode.getChildren().add(new TreeItem<String> (cd.getTelefonnummer()));
 			 rootItem.getChildren().add(ersternode);
 		}
-		 TreeView<String> tree = new TreeView<String>(rootItem);
+		tree = new TreeView<String>(rootItem);
 		
 		
 		final Label label = new Label("Addressbuch");
