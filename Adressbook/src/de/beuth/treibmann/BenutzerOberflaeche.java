@@ -38,7 +38,7 @@ public class BenutzerOberflaeche extends Application {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private TableView<Contactdetails> table = new TableView();
-	private ObservableList<Contactdetails> data;
+	// private ObservableList<Contactdetails> data;
 	private Adressbook adressbook;
 	private final TextField addVorName;
 	private final TextField addNachname;
@@ -60,7 +60,7 @@ public class BenutzerOberflaeche extends Application {
 	@SuppressWarnings("rawtypes")
 	public BenutzerOberflaeche() {
 		this.adressbook = new Adressbook();
-		this.data = adressbook.getData();
+		// this.data = adressbook.getData();
 
 		firstNameCol = new TableColumn("Vorname");
 		lastNameCol = new TableColumn("Nachname");
@@ -222,10 +222,10 @@ public class BenutzerOberflaeche extends Application {
 
 			}
 
-			if (!adressbook.keyInUse(addVorName.getText(), addNachname.getText(), data)
+			if (!adressbook.keyInUse(addVorName.getText(), addNachname.getText(), adressbook.getData())
 					&& adressbook.addDetails(listeEingabeFelder, this)) {
 
-				data.add(new Contactdetails(addNachname.getText(), addVorName.getText(), addAdresse.getText(),
+				adressbook.getData().add(new Contactdetails(addNachname.getText(), addVorName.getText(), addAdresse.getText(),
 						addEmail.getText(), addTelefonnummer.getText()));
 				clearEingabeFeld();
 			} else {
@@ -249,7 +249,7 @@ public class BenutzerOberflaeche extends Application {
 		cmItem1.setOnAction((e) -> {
 
 			if (table.getSelectionModel().getSelectedItem() != null) {
-				data.remove(table.getSelectionModel().getSelectedItem());
+				adressbook.getData().remove(table.getSelectionModel().getSelectedItem());
 				table.getSelectionModel().clearSelection();
 			} else {
 				sendeWarnung(new Alert(AlertType.ERROR), "Fehler", "Fehler bei Löschvorgang",
@@ -266,7 +266,7 @@ public class BenutzerOberflaeche extends Application {
 				cm.hide();
 			}
 		} );
-		adressbook.search(data, search, table);
+		adressbook.search(adressbook.getData(), search, table);
 
 		hboxOben.getChildren().addAll(label, search);
 		label.setPadding(new Insets(5, 380, 5, 5));
