@@ -41,7 +41,7 @@ public interface AdressbookInterface {
 	 *            Ein Schlüssel, der aus Name und/oder Vorname des Kontaktes
 	 *            besteht.
 	 * @return True wenn der Schlüssel in Benutzung ist. False wenn der
-	 *         Schlüssel nicht in Benutzung ist.
+	 *         Schlüssel nicht in Benutzung ist. :)
 	 */
 	public boolean keyInUse(String vorname, String nachname, ObservableList<Contactdetails> dataKey);
 
