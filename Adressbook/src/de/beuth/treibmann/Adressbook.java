@@ -14,7 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 /**
- * @author tim für mahan1
+ * @author tim für mahan2
  *
  */
 public class Adressbook implements AdressbookInterface {
