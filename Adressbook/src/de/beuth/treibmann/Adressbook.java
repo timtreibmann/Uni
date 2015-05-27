@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 public class Adressbook implements AdressbookInterface {
 
 	private  ObservableList<Contactdetails> data = FXCollections
-			.observableArrayList(new Contactdetails("Smith", "Jacob", "Straße 21", "jacob.smith@example.com", "12346"),
+			.observableArrayList(new Contactdetails("Pimmel", "Jacob", "Straße 21", "jacob.smith@example.com", "12346"),
 					new Contactdetails("Johnson", "Isabella", "Weg 82", "isabella.johnson@example.com", "43545435"),
 					new Contactdetails("Williams", "Ethan", "Blusenstraße 21", "ethan.williams@example.com",
 							"744546465"),
