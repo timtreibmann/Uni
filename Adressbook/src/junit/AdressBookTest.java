@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import de.beuth.treibmann.Adressbook;
-import de.beuth.treibmann.BenutzerOberflaeche;
+import de.beuth.treibmann.View.BenutzerOberflaeche;
 import de.beuth.treibmann.Contactdetails;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

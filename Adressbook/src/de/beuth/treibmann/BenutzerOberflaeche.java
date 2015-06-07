@@ -1,6 +1,6 @@
 /**
  * 
- */
+ 
 package de.beuth.treibmann;
 
 import java.util.ArrayList;
@@ -31,10 +31,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-/**
- * @author tim treibmann
- *
- */
+
 
 public class BenutzerOberflaeche extends Application {
 
@@ -351,3 +348,4 @@ public class BenutzerOberflaeche extends Application {
 	}
 
 }
+*/

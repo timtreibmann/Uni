@@ -2,6 +2,7 @@ package de.beuth.treibmann;
 
 import java.util.ArrayList;
 
+import de.beuth.treibmann.View.BenutzerOberflaeche;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;

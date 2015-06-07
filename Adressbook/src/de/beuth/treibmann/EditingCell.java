@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
  * @author tim
  *
  */
-class EditingCell extends TableCell<Contactdetails, String> {
+public class EditingCell extends TableCell<Contactdetails, String> {
 	 
     private TextField textField;
 
