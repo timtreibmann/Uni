@@ -62,58 +62,58 @@ public class AdressBookTest {
 		assertFalse(proband.keyInUse(vorNameNichtVorhanden, nameNichtVorhanden, obList));
 	}
 
-	@Test
-	public void testIsName() {
-		assertTrue(proband.isName("Peter"));
-		ArrayList<String> liste = new ArrayList<String>();
-		liste.addAll(Arrays.asList("Peter2", "-Peter", " Peter"));
-		for (String string : liste) {
-
-			boolean invalid = proband.isName(string);
-			assertFalse(invalid);
-		}
-	}
-
-	@Test
-	public void testIsAdresse() {
-		ArrayList<String> liste = new ArrayList<String>();
-		liste.addAll(Arrays.asList("Erstestrasse 3", "Gute Str. 3", "Erste-Gute 23"));
-		for (String string : liste) {
-
-			boolean valid = proband.isAdresse(string);
-			assertTrue(valid);
-		}
-
-	}
-
-	@Test
-	public void testIsEmail() {
-		ArrayList<String> listeTrue = new ArrayList<String>();
-		listeTrue.addAll(Arrays.asList("tina@yahoo.com", "tina-100@yahoo.com", "tina.100@yahoo.com", "tina111@tina.com",
-				"tina-100@tina.net", "tina.100@tina.com.au", "tina@1.com", "tina@gmail.com.com", "tina+100@gmail.com",
-				"tina-100@yahoo-test.com"));
-		for (String string : listeTrue) {
-
-			boolean valid = proband.isEmail(string);
-			assertTrue(valid);
-		}
-
-		ArrayList<String> listeFalse = new ArrayList<String>();
-		listeFalse.addAll(Arrays.asList("tina", "tina@.com.my", "tina123@gmail.a", "tina123@.com", "tina123@.com.com",
-				".tina@tina.com", "tina()*@gmail.com", "tina@%*.com", "tina..2002@gmail.com", "tina.@gmail.com",
-				"tina@tina@gmail.com", "tina@gmail.com.1a"));
-		for (String string : listeFalse) {
-
-			boolean invalid = proband.isEmail(string);
-			assertFalse(invalid);
-		}
-	}
-
-	@Test
-	public void testIsTelefonnummer() {
-		assertTrue(proband.isTelefonnummer("3242234234"));
-		assertFalse(proband.isTelefonnummer("2324a243242"));
-	}
+//	@Test
+//	public void testIsName() {
+//		assertTrue(proband.isName("Peter"));
+//		ArrayList<String> liste = new ArrayList<String>();
+//		liste.addAll(Arrays.asList("Peter2", "-Peter", " Peter"));
+//		for (String string : liste) {
+//
+//			boolean invalid = proband.isName(string);
+//			assertFalse(invalid);
+//		}
+//	}
+//
+//	@Test
+//	public void testIsAdresse() {
+//		ArrayList<String> liste = new ArrayList<String>();
+//		liste.addAll(Arrays.asList("Erstestrasse 3", "Gute Str. 3", "Erste-Gute 23"));
+//		for (String string : liste) {
+//
+//			boolean valid = proband.isAdresse(string);
+//			assertTrue(valid);
+//		}
+//
+//	}
+//
+//	@Test
+//	public void testIsEmail() {
+//		ArrayList<String> listeTrue = new ArrayList<String>();
+//		listeTrue.addAll(Arrays.asList("tina@yahoo.com", "tina-100@yahoo.com", "tina.100@yahoo.com", "tina111@tina.com",
+//				"tina-100@tina.net", "tina.100@tina.com.au", "tina@1.com", "tina@gmail.com.com", "tina+100@gmail.com",
+//				"tina-100@yahoo-test.com"));
+//		for (String string : listeTrue) {
+//
+//			boolean valid = proband.isEmail(string);
+//			assertTrue(valid);
+//		}
+//
+//		ArrayList<String> listeFalse = new ArrayList<String>();
+//		listeFalse.addAll(Arrays.asList("tina", "tina@.com.my", "tina123@gmail.a", "tina123@.com", "tina123@.com.com",
+//				".tina@tina.com", "tina()*@gmail.com", "tina@%*.com", "tina..2002@gmail.com", "tina.@gmail.com",
+//				"tina@tina@gmail.com", "tina@gmail.com.1a"));
+//		for (String string : listeFalse) {
+//
+//			boolean invalid = proband.isEmail(string);
+//			assertFalse(invalid);
+//		}
+//	}
+//
+//	@Test
+//	public void testIsTelefonnummer() {
+//		assertTrue(proband.isTelefonnummer("3242234234"));
+//		assertFalse(proband.isTelefonnummer("2324a243242"));
+//	}
 
 	@Test
 	public void testaddDetails() {

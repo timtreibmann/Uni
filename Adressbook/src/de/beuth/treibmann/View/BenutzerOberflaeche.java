@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -51,10 +53,25 @@ public class BenutzerOberflaeche extends Application {
 	private ListView listView;
 	private TreeItem<String> rootItem;
 	private Scene scene;
+	private MenuBar menuebar;
+	private MenuItem menueTable;
+	private MenuItem menueList;
+	private MenuItem menueTree;
+	private Menu menue;
+	private VBox vboxmenu;
+	private HBox contentBox;
+	private Button addbuttonBlank;
 
 	public BenutzerOberflaeche() {
 
 		scene = new Scene(new Group());
+		vboxmenu = new VBox();
+		menuebar = new MenuBar();
+		menue = new Menu("View");
+		menueTable = new MenuItem("TableView");
+		menueList = new MenuItem("ListView");
+		menueTree = new MenuItem("TreeView");
+		contentBox = new HBox();
 		hb = new HBox();
 		hboxOben = new HBox();
 		vbox = new VBox();
@@ -84,6 +101,7 @@ public class BenutzerOberflaeche extends Application {
 		listeEingabeFelder.add(addTelefonnummer);
 
 		addButton = new Button("Hinzufügen");
+		addbuttonBlank = new Button("Blank+");
 		search = new TextField();
 		cm = new ContextMenu();
 		cmItem1 = new MenuItem("Löschen");
@@ -96,6 +114,8 @@ public class BenutzerOberflaeche extends Application {
 	public void start(Stage stage) throws Exception {
 
 		setStage(stage);
+		menuebar.getMenus().addAll(menue);
+		menue.getItems().addAll(menueTable, menueList, menueTree);
 
 		table.getColumns().addAll(firstNameCol, lastNameCol, adress, emailCol, telefonnumber);
 
@@ -106,15 +126,16 @@ public class BenutzerOberflaeche extends Application {
 
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
-		vbox.getChildren().addAll(hboxOben, table, hb);
+		vboxmenu.getChildren().addAll(menuebar);
+		contentBox.getChildren().addAll(table);
+		vbox.getChildren().addAll(vboxmenu, hboxOben, contentBox, hb, addbuttonBlank);
 
-		hboxSuper.getChildren().addAll(listView, vbox, tree);
+		hboxSuper.getChildren().addAll(vbox);
 
 		((Group) scene.getRoot()).getChildren().addAll(hboxSuper);
 
 		stage.setScene(scene);
 		stage.show();
-		
 
 	}
 
@@ -125,7 +146,11 @@ public class BenutzerOberflaeche extends Application {
 	public void starteMitEinstellungen() {
 
 		rootItem.setExpanded(false);
+		listView.setVisible(false);
+		menuebar.setVisible(true);
+		tree.setVisible(false);
 
+		listView.setEditable(true);
 		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		firstNameCol.setPrefWidth(80);
 		lastNameCol.setPrefWidth(100);
@@ -157,9 +182,14 @@ public class BenutzerOberflaeche extends Application {
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
 
-		table.setMaxWidth(firstNameCol.getPrefWidth() + lastNameCol.getPrefWidth() + adress.getPrefWidth()
+		table.setMinWidth(firstNameCol.getPrefWidth() + lastNameCol.getPrefWidth() + adress.getPrefWidth()
 				+ emailCol.getPrefWidth() + telefonnumber.getPrefWidth());
 
+		listView.setMinWidth(firstNameCol.getPrefWidth() + lastNameCol.getPrefWidth() + adress.getPrefWidth()
+				+ emailCol.getPrefWidth() + telefonnumber.getPrefWidth());
+
+		tree.setMinWidth(firstNameCol.getPrefWidth() + lastNameCol.getPrefWidth() + adress.getPrefWidth()
+				+ emailCol.getPrefWidth() + telefonnumber.getPrefWidth());
 	}
 
 	public void setStage(Stage stage) {
@@ -366,6 +396,70 @@ public class BenutzerOberflaeche extends Application {
 
 	public void setScene(Scene scene) {
 		this.scene = scene;
+	}
+
+	public MenuBar getMenuebar() {
+		return menuebar;
+	}
+
+	public void setMenuebar(MenuBar menuebar) {
+		this.menuebar = menuebar;
+	}
+
+	public MenuItem getMenueTable() {
+		return menueTable;
+	}
+
+	public MenuItem getMenueList() {
+		return menueList;
+	}
+
+	public MenuItem getMenueTree() {
+		return menueTree;
+	}
+
+	public VBox getVboxmenu() {
+		return vboxmenu;
+	}
+
+	public void setVboxmenu(VBox vboxmenu) {
+		this.vboxmenu = vboxmenu;
+	}
+
+	public Menu getMenue() {
+		return menue;
+	}
+
+	public void setMenue(Menu menue) {
+		this.menue = menue;
+	}
+
+	public void setMenueTable(MenuItem menueTable) {
+		this.menueTable = menueTable;
+	}
+
+	public void setMenueList(MenuItem menueList) {
+		this.menueList = menueList;
+	}
+
+	public void setMenueTree(MenuItem menueTree) {
+		this.menueTree = menueTree;
+	}
+
+	public HBox getContentBox() {
+		return contentBox;
+	}
+
+	public void setContentBox(HBox contentBox) {
+		this.contentBox = contentBox;
+	}
+
+	public Button getAddbuttonBlank() {
+		return addbuttonBlank;
+	}
+
+	public void setAddbuttonBlank(Button addbuttonBlank) {
+		this.addbuttonBlank = addbuttonBlank;
 	}
 
 }

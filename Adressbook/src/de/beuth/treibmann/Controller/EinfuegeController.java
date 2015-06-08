@@ -3,14 +3,20 @@ package de.beuth.treibmann.Controller;
 import de.beuth.treibmann.Adressbook;
 import de.beuth.treibmann.Contactdetails;
 import de.beuth.treibmann.View.BenutzerOberflaeche;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class EinfuegeController {
 	
+	
+	
 	@SuppressWarnings("unchecked")
 	public void setListViewData(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook) {
-		benutzeroberflaeche.getListView().setItems(adressbook.getData());
+	
+		adressbook.createObListforListView();
+		benutzeroberflaeche.getListView().setItems(adressbook.getDataList());
 		
 	}
 

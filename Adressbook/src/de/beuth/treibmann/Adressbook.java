@@ -3,14 +3,11 @@
  */
 package de.beuth.treibmann;
 
-import java.util.ArrayList;
-import java.util.regex.Pattern;
-
-import de.beuth.treibmann.View.BenutzerOberflaeche;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -20,15 +17,33 @@ import javafx.scene.control.TextField;
  */
 public class Adressbook implements AdressbookInterface {
 
-	private  ObservableList<Contactdetails> data = FXCollections
-			.observableArrayList(new Contactdetails("Meister", "Jacob", "Straße 21", "jacob.smith@example.com", "12346"),
-					new Contactdetails("Johnson", "Isabella", "Weg 82", "isabella.johnson@example.com", "43545435"),
-					new Contactdetails("Williams", "Ethan", "Blusenstraße 21", "ethan.williams@example.com",
-							"744546465"),
+	private ObservableList<Contactdetails> data = FXCollections.observableArrayList(
+			new Contactdetails("Meister", "Jacob", "Straße 21", "jacob.smith@example.com", "12346"),
+			new Contactdetails("Johnson", "Isabella", "Weg 82", "isabella.johnson@example.com", "43545435"),
+			new Contactdetails("Williams", "Ethan", "Blusenstraße 21", "ethan.williams@example.com", "744546465"),
 			new Contactdetails("Jones", "Emma", "Berlinerstr. 56", "emma.jones@example.com", "7867863"),
 			new Contactdetails("Brown", "Michael", "Schlossweg 90", "michael.brown@example.com", "123123"));
 
-	
+	private ObservableList<String> dataList = FXCollections.observableArrayList();
+
+	public void createObListforListView() {
+		dataList.clear();
+		for (Contactdetails cd : data) {
+
+			dataList.add(cd.getName());
+		}
+		;
+
+	}
+
+	public void updateData(ObservableList<Contactdetails> data, ObservableList<String> dataList) {
+		int i = 0;
+		for (Contactdetails cd : data) {
+			cd.setName(dataList.get(i));
+			i++;
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -44,7 +59,7 @@ public class Adressbook implements AdressbookInterface {
 	 * 
 	 * @see de.beuth.treibmann.AdressbookInterface#keyInUse(java.lang.String)
 	 */
-	 
+
 	public boolean keyInUse(String vorname, String nachname, ObservableList<Contactdetails> dataKey) {
 		for (Contactdetails contactdetails : dataKey) {
 
@@ -62,77 +77,9 @@ public class Adressbook implements AdressbookInterface {
 	 * de.beuth.treibmann.AdressbookInterface#addDetails(de.beuth.treibmann.
 	 * Contactdetails)
 	 */
-	 
-	public boolean addDetails(ArrayList<TextField> textfield, BenutzerOberflaeche bnf) {
 
-		boolean isRichtig = false;
+	public void addDetails(Contactdetails contactdetails) {
 
-		for (TextField textField2 : textfield) {
-
-			if (textField2.getPromptText().contains("Vorname")) {
-				isRichtig = isName(textField2.getText());
-				bnf.getAddVorName().setStyle("-fx-background-color: none");
-				bnf.getAddVorName().setStyle("-fx-innerborder-color: grey");
-				if (!isRichtig) {
-					bnf.getAddVorName().setStyle("-fx-background-color: red");
-				}
-			}
-			if (isRichtig && textField2.getPromptText().contains("Nachname")) {
-				isRichtig = isName(textField2.getText());
-				bnf.getAddNachname().setStyle("-fx-background-color: none");
-				bnf.getAddNachname().setStyle("-fx-innerborder-color: grey");
-				if (!isRichtig) {
-					bnf.getAddNachname().setStyle("-fx-background-color: red");
-				}
-			}
-			if (isRichtig && textField2.getPromptText().contains("Adresse")) {
-				isRichtig = isAdresse(textField2.getText());
-				bnf.getAddAdresse().setStyle("-fx-background-color: none");
-				bnf.getAddAdresse().setStyle("-fx-innerborder-color: grey");
-				if (!isRichtig) {
-					bnf.getAddAdresse().setStyle("-fx-background-color: red");
-				}
-			}
-			if (isRichtig && textField2.getPromptText().contains("Email")) {
-				isRichtig = isEmail(textField2.getText());
-				bnf.getAddEmail().setStyle("-fx-background-color: none");
-				bnf.getAddEmail().setStyle("-fx-innerborder-color: gray");
-				if (!isRichtig) {
-					bnf.getAddEmail().setStyle("-fx-background-color: red");
-				}
-			}
-			if (isRichtig && textField2.getPromptText().contains("Telefonnummer")) {
-				isRichtig = isTelefonnummer(textField2.getText());
-				bnf.getAddTelefonnummer().setStyle("-fx-background-color: none");
-				bnf.getAddTelefonnummer().setStyle("-fx-innerborder-color: grey");
-				if (!isRichtig) {
-					bnf.getAddTelefonnummer().setStyle("-fx-background-color: red");
-				}
-			}
-			
-		}
-		return isRichtig;
-
-	}
-
-	public boolean isName(String string) {
-		return Pattern.matches("[A-Za-z]*", string);
-	}
-
-	public boolean isAdresse(String string) {
-		return Pattern.matches(
-				"[A-Za-z]*[-]{0,1}[A-Za-z]*\\s[0-9]*[A-Za-z]{0,1}|[A-Za-z]*[-]{0,1}[A-Za-z]*\\s[A-Za-z]*[.]{0,1}\\s[0-9]*",
-				string);
-	}
-
-	public boolean isEmail(String string) {
-		return Pattern.matches(
-				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
-				string);
-	}
-
-	public boolean isTelefonnummer(String string) {
-		return Pattern.matches("[0-9]*", string);
 	}
 
 	/*
@@ -142,7 +89,7 @@ public class Adressbook implements AdressbookInterface {
 	 * de.beuth.treibmann.AdressbookInterface#changeDetails(java.lang.String,
 	 * de.beuth.treibmann.Contactdetails)
 	 */
-	 
+
 	public void changeDetails(String oldKey, Contactdetails newDetails) {
 		// TODO Auto-generated method stub
 
@@ -153,7 +100,27 @@ public class Adressbook implements AdressbookInterface {
 	 * 
 	 * @see de.beuth.treibmann.AdressbookInterface#search(java.lang.String)
 	 */
-	 
+
+	public void searchListView(ObservableList<String> data1, TextField search, ListView<String> listview) {
+		FilteredList<String> filteredData = new FilteredList<>(data1, p -> true);
+		search.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(person -> {
+				// If filter text is empty, display all persons.
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+
+				// Compare first name and last name of every person with filter
+				// text.
+				String lowerCaseFilter = newValue.toLowerCase();
+				if (person.toLowerCase().contains(lowerCaseFilter)) {
+					return true; // Filter matches first name.
+				}
+				return false; // Does not match.
+			} );
+		} );
+	}
+
 	public void search(ObservableList<Contactdetails> data1, TextField search, TableView<Contactdetails> table) {
 
 		// 1. Wrap the ObservableList in a FilteredList (initially display all
@@ -176,11 +143,11 @@ public class Adressbook implements AdressbookInterface {
 				} else if (person.getName().toLowerCase().contains(lowerCaseFilter)) {
 					return true; // Filter matches last name.
 				} else if (person.getEmail().toLowerCase().contains(lowerCaseFilter)) {
-					return true; // Filter matches last name.
+					return true; // Filter matches email.
 				} else if (person.getAdresse().toLowerCase().contains(lowerCaseFilter)) {
-					return true; // Filter matches last name.
+					return true; // Filter matches adresse.
 				} else if (person.getTelefonnummer().toLowerCase().contains(lowerCaseFilter)) {
-					return true; // Filter matches last name.
+					return true; // Filter matches telefonnummer.
 				}
 
 				return false; // Does not match.
@@ -204,7 +171,7 @@ public class Adressbook implements AdressbookInterface {
 	 * 
 	 * @see de.beuth.treibmann.AdressbookInterface#getNumberOfEntries()
 	 */
-	 
+
 	public int getNumberOfEntries() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -216,7 +183,7 @@ public class Adressbook implements AdressbookInterface {
 	 * @see
 	 * de.beuth.treibmann.AdressbookInterface#removeDetails(java.lang.String)
 	 */
-	 
+
 	public void removeDetails(String key) {
 		// TODO Auto-generated method stub
 
@@ -228,6 +195,14 @@ public class Adressbook implements AdressbookInterface {
 
 	public void setData(ObservableList<Contactdetails> data) {
 		this.data = data;
+	}
+
+	public ObservableList<String> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(ObservableList<String> dataList) {
+		this.dataList = dataList;
 	}
 
 }

@@ -10,28 +10,28 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 
 public class HandlerController {
 
-
-
 	@SuppressWarnings("unchecked")
-	public void init(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook) {
+	public void init(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook,
+			PruefeEingabeController pruefeingabecontroller) {
 		benutzeroberflaeche.getFirstNameCol()
 				.setOnEditCommit(new EventHandler<CellEditEvent<Contactdetails, String>>() {
 
 					@Override
 					public void handle(CellEditEvent<Contactdetails, String> t) {
 
-						if (adressbook.isName(t.getNewValue()) && !t.getNewValue().equals("")) {
+						if ((pruefeingabecontroller.isName(t.getNewValue())) && (!t.getNewValue().equals(""))) {
 							((Contactdetails) t.getTableView().getItems().get(t.getTablePosition().getRow()))
 									.setVorname(t.getNewValue());
-							behebeAnzeigefehler(benutzeroberflaeche, adressbook);
-
+							
+							behebeAnzeigefehler(benutzeroberflaeche);
 
 						} else {
 
 							new AlertController().sendeWarnung(new Alert(Alert.AlertType.ERROR), "Fehler",
 									"Fehlerhafte Eingabe Vorname",
 									"Ihre Eingabe " + t.getNewValue() + " war fehlerhaft");
-							behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+							behebeAnzeigefehler(benutzeroberflaeche);
+
 						}
 					}
 				});
@@ -40,14 +40,15 @@ public class HandlerController {
 			@Override
 			public void handle(CellEditEvent<Contactdetails, String> t) {
 
-				if (adressbook.isName(t.getNewValue()) && !t.getNewValue().equals("")) {
+				if ((pruefeingabecontroller.isName(t.getNewValue())) && (!t.getNewValue().equals(""))) {
 					((Contactdetails) t.getTableView().getItems().get(t.getTablePosition().getRow()))
 							.setName(t.getNewValue());
-					behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+					
+					behebeAnzeigefehler(benutzeroberflaeche);
 				} else {
 					new AlertController().sendeWarnung(new Alert(Alert.AlertType.ERROR), "Fehler",
 							"Fehlerhafte Eingabe Nachname", "Ihre Eingabe " + t.getNewValue() + " war fehlerhaft");
-					behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+					behebeAnzeigefehler(benutzeroberflaeche);
 				}
 			}
 
@@ -56,14 +57,14 @@ public class HandlerController {
 		benutzeroberflaeche.getAdress().setOnEditCommit(new EventHandler<CellEditEvent<Contactdetails, String>>() {
 			@Override
 			public void handle(CellEditEvent<Contactdetails, String> t) {
-				if (adressbook.isAdresse(t.getNewValue())) {
+				if (pruefeingabecontroller.isAdresse(t.getNewValue())) {
 					((Contactdetails) t.getTableView().getItems().get(t.getTablePosition().getRow()))
 							.setAdresse(t.getNewValue());
-					behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+					behebeAnzeigefehler(benutzeroberflaeche);
 				} else {
 					new AlertController().sendeWarnung(new Alert(Alert.AlertType.ERROR), "Fehler",
 							"Fehlerhafte Eingabe", "Ihre Eingabe " + t.getNewValue() + " war fehlerhaft");
-					behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+					behebeAnzeigefehler(benutzeroberflaeche);
 				}
 			}
 		});
@@ -71,14 +72,14 @@ public class HandlerController {
 		benutzeroberflaeche.getEmailCol().setOnEditCommit(new EventHandler<CellEditEvent<Contactdetails, String>>() {
 			@Override
 			public void handle(CellEditEvent<Contactdetails, String> t) {
-				if (adressbook.isEmail(t.getNewValue())) {
+				if (pruefeingabecontroller.isEmail(t.getNewValue())) {
 					((Contactdetails) t.getTableView().getItems().get(t.getTablePosition().getRow()))
 							.setEmail(t.getNewValue());
-					behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+					behebeAnzeigefehler(benutzeroberflaeche);
 				} else {
 					new AlertController().sendeWarnung(new Alert(Alert.AlertType.ERROR), "Fehler",
 							"Fehlerhafte Eingabe", "Ihre Eingabe " + t.getNewValue() + " war fehlerhaft");
-					behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+					behebeAnzeigefehler(benutzeroberflaeche);
 				}
 			}
 		});
@@ -87,24 +88,27 @@ public class HandlerController {
 				.setOnEditCommit(new EventHandler<CellEditEvent<Contactdetails, String>>() {
 					@Override
 					public void handle(CellEditEvent<Contactdetails, String> t) {
-						if (adressbook.isTelefonnummer(t.getNewValue())) {
+						if (pruefeingabecontroller.isTelefonnummer(t.getNewValue())) {
 							((Contactdetails) t.getTableView().getItems().get(t.getTablePosition().getRow()))
 									.setTelefonnummer(t.getNewValue());
-							behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+							behebeAnzeigefehler(benutzeroberflaeche);
 						} else {
 							new AlertController().sendeWarnung(new Alert(Alert.AlertType.ERROR), "Fehler",
 									"Fehlerhafte Eingabe", "Ihre Eingabe " + t.getNewValue() + " war fehlerhaft");
-							behebeAnzeigefehler(benutzeroberflaeche, adressbook);
+							behebeAnzeigefehler(benutzeroberflaeche);
 						}
 					}
 				});
 	}
 
-	public void fuegeeinEingabeFelder(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook) {
+	
+
+	public void fuegeeinEingabeFelder(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook,
+			PruefeEingabeController eingabe) {
 		benutzeroberflaeche.getAddButton().setOnAction((e) -> {
 			if (!adressbook.keyInUse(benutzeroberflaeche.getAddVorName().getText(),
 					benutzeroberflaeche.getAddNachname().getText(), adressbook.getData())
-					&& adressbook.addDetails(benutzeroberflaeche.getListeEingabeFelder(), benutzeroberflaeche)) {
+					&& eingabe.checkDetails(benutzeroberflaeche.getListeEingabeFelder(), benutzeroberflaeche)) {
 
 				adressbook.getData().add(new Contactdetails(benutzeroberflaeche.getAddNachname().getText(),
 						benutzeroberflaeche.getAddVorName().getText(), benutzeroberflaeche.getAddAdresse().getText(),
@@ -112,12 +116,20 @@ public class HandlerController {
 						benutzeroberflaeche.getAddTelefonnummer().getText()));
 				clearEingabeFeld(benutzeroberflaeche);
 			} else {
-				new AlertController().sendeWarnung(new Alert(AlertType.WARNING), "Warnung",
-						"Vor- oder Nachname in Benutzung", "Vor- und Nachname schon vorhanden");
+				new AlertController().sendeWarnung(new Alert(AlertType.WARNING), "Warnung", "Falsche Eingabe",
+						"Ihre Eingabe war falsch!");
 
 			}
 		} );
 
+	}
+	public void fuegeEinBlank(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook){
+		benutzerOberflaeche.getAddbuttonBlank().setOnAction((e)->{
+			adressbook.getData().add(new Contactdetails("name", "vorname", "adresse", "email", "telefonnummer"));
+			adressbook.createObListforListView();
+			this.behebeAnzeigefehler(benutzerOberflaeche);
+			
+		});
 	}
 
 	public void rechtsKlicken(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
@@ -145,14 +157,46 @@ public class HandlerController {
 		} );
 	}
 
+	public void onclickMenueTable(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
+		benutzerOberflaeche.getMenueTable().setOnAction((e) -> {
+			adressbook.updateData(adressbook.getData(), adressbook.getDataList());
+			this.behebeAnzeigefehler(benutzerOberflaeche);
+			benutzerOberflaeche.getContentBox().getChildren().remove(0);
+			benutzerOberflaeche.getContentBox().getChildren().add(benutzerOberflaeche.getTable());
+			benutzerOberflaeche.getTable().setVisible(true);
+
+		} );
+
+	}
+
+	public void onclickMenueList(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
+		
+		benutzerOberflaeche.getMenueList().setOnAction((e) -> {
+			adressbook.createObListforListView();
+			benutzerOberflaeche.getContentBox().getChildren().remove(0);
+			benutzerOberflaeche.getContentBox().getChildren().add(benutzerOberflaeche.getListView());
+			benutzerOberflaeche.getListView().setVisible(true);
+
+		} );
+
+	}
+
+	public void onclickMenueTree(BenutzerOberflaeche benutzerOberflaeche) {
+		benutzerOberflaeche.getMenueTree().setOnAction((e) -> {
+			benutzerOberflaeche.getContentBox().getChildren().remove(0);
+			benutzerOberflaeche.getContentBox().getChildren().add(benutzerOberflaeche.getTree());
+			benutzerOberflaeche.getTree().setVisible(true);
+		} );
+
+	}
+
 	@SuppressWarnings("unchecked")
-	public void behebeAnzeigefehler(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook) {
+	public void behebeAnzeigefehler(BenutzerOberflaeche benutzeroberflaeche) {
 		benutzeroberflaeche.getTable().getColumns().get(0).setVisible(false);
 		benutzeroberflaeche.getTable().getColumns().get(0).setVisible(true);
-		benutzeroberflaeche.getListView().setItems(null);
-		benutzeroberflaeche.getListView().setItems(benutzeroberflaeche.getTable().getItems());
-		
-		
+		benutzeroberflaeche.getListView().setVisible(false);
+		benutzeroberflaeche.getListView().setVisible(true);
+
 	}
 
 	private void clearEingabeFeld(BenutzerOberflaeche benutzerOberflaeche) {

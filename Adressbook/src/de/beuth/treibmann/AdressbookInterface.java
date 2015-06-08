@@ -1,8 +1,5 @@
 package de.beuth.treibmann;
 
-import java.util.ArrayList;
-
-import de.beuth.treibmann.View.BenutzerOberflaeche;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -54,7 +51,7 @@ public interface AdressbookInterface {
 	 *            Ein Contactdetails-Objekt, welches einen Kontakt
 	 *            repräsentiert.
 	 */
-	public boolean addDetails(ArrayList<TextField> textfield, BenutzerOberflaeche bnf);
+	//public boolean addDetails(ArrayList<TextField> textfield, BenutzerOberflaeche bnf);
 
 	/**
 	 * Es wird ein bestehendes Contactdetails-Objekt anhand des übergebenden
