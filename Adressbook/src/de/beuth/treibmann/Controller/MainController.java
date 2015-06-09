@@ -45,6 +45,7 @@ public class MainController extends Application {
 		handlerController.onclickMenueTree(benutzeroberflaeche);
 		handlerController.onclickMenueList(benutzeroberflaeche, adressbook);
 		handlerController.fuegeEinBlank(benutzeroberflaeche, adressbook);
+		handlerController.zeigeAnDateninConsole(benutzeroberflaeche, adressbook);
 		
 	}
 

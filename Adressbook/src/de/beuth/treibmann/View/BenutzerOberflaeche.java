@@ -61,11 +61,14 @@ public class BenutzerOberflaeche extends Application {
 	private VBox vboxmenu;
 	private HBox contentBox;
 	private Button addbuttonBlank;
+	private Button consolenAusgabe;
+	private HBox hboxbuttonBlankCA;
 
 	public BenutzerOberflaeche() {
 
 		scene = new Scene(new Group());
 		vboxmenu = new VBox();
+		hboxbuttonBlankCA = new HBox();
 		menuebar = new MenuBar();
 		menue = new Menu("View");
 		menueTable = new MenuItem("TableView");
@@ -102,6 +105,7 @@ public class BenutzerOberflaeche extends Application {
 
 		addButton = new Button("Hinzufügen");
 		addbuttonBlank = new Button("Blank+");
+		consolenAusgabe = new Button("ConsolenAusgabe");
 		search = new TextField();
 		cm = new ContextMenu();
 		cmItem1 = new MenuItem("Löschen");
@@ -128,7 +132,8 @@ public class BenutzerOberflaeche extends Application {
 		vbox.setPadding(new Insets(10, 0, 0, 10));
 		vboxmenu.getChildren().addAll(menuebar);
 		contentBox.getChildren().addAll(table);
-		vbox.getChildren().addAll(vboxmenu, hboxOben, contentBox, hb, addbuttonBlank);
+		hboxbuttonBlankCA.getChildren().addAll(addbuttonBlank,consolenAusgabe);
+		vbox.getChildren().addAll(vboxmenu, hboxOben, contentBox, hb, hboxbuttonBlankCA);
 
 		hboxSuper.getChildren().addAll(vbox);
 
@@ -149,8 +154,8 @@ public class BenutzerOberflaeche extends Application {
 		listView.setVisible(false);
 		menuebar.setVisible(true);
 		tree.setVisible(false);
-
-		listView.setEditable(true);
+		tree.setEditable(false);
+		listView.setEditable(false);
 		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		firstNameCol.setPrefWidth(80);
 		lastNameCol.setPrefWidth(100);
@@ -460,6 +465,22 @@ public class BenutzerOberflaeche extends Application {
 
 	public void setAddbuttonBlank(Button addbuttonBlank) {
 		this.addbuttonBlank = addbuttonBlank;
+	}
+
+	public Button getConsolenAusgabe() {
+		return consolenAusgabe;
+	}
+
+	public void setConsolenAusgabe(Button consolenAusgabe) {
+		this.consolenAusgabe = consolenAusgabe;
+	}
+
+	public HBox getHboxbuttonBlankCA() {
+		return hboxbuttonBlankCA;
+	}
+
+	public void setHboxbuttonBlankCA(HBox hboxbuttonBlankCA) {
+		this.hboxbuttonBlankCA = hboxbuttonBlankCA;
 	}
 
 }

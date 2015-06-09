@@ -131,6 +131,12 @@ public class HandlerController {
 			
 		});
 	}
+	public void zeigeAnDateninConsole(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook){
+		benutzerOberflaeche.getConsolenAusgabe().setOnAction((e) ->{
+			if(benutzerOberflaeche.getTable().isEditable())System.out.println(adressbook.getData().toString());
+			if(benutzerOberflaeche.getListView().isEditable())System.out.println(adressbook.getDataList().toString());
+		});
+	}
 
 	public void rechtsKlicken(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
 		benutzerOberflaeche.getCm().getItems().add(benutzerOberflaeche.getCmItem1());
@@ -163,6 +169,9 @@ public class HandlerController {
 			this.behebeAnzeigefehler(benutzerOberflaeche);
 			benutzerOberflaeche.getContentBox().getChildren().remove(0);
 			benutzerOberflaeche.getContentBox().getChildren().add(benutzerOberflaeche.getTable());
+			benutzerOberflaeche.getTable().setEditable(true);
+			benutzerOberflaeche.getListView().setEditable(false);
+			benutzerOberflaeche.getTree().setEditable(false);
 			benutzerOberflaeche.getTable().setVisible(true);
 
 		} );
@@ -175,6 +184,9 @@ public class HandlerController {
 			adressbook.createObListforListView();
 			benutzerOberflaeche.getContentBox().getChildren().remove(0);
 			benutzerOberflaeche.getContentBox().getChildren().add(benutzerOberflaeche.getListView());
+			benutzerOberflaeche.getListView().setEditable(true);
+			benutzerOberflaeche.getTable().setEditable(false);
+			benutzerOberflaeche.getTree().setEditable(false);
 			benutzerOberflaeche.getListView().setVisible(true);
 
 		} );
@@ -185,6 +197,9 @@ public class HandlerController {
 		benutzerOberflaeche.getMenueTree().setOnAction((e) -> {
 			benutzerOberflaeche.getContentBox().getChildren().remove(0);
 			benutzerOberflaeche.getContentBox().getChildren().add(benutzerOberflaeche.getTree());
+			benutzerOberflaeche.getTree().setEditable(true);
+			benutzerOberflaeche.getListView().setEditable(false);
+			benutzerOberflaeche.getTable().setEditable(false);
 			benutzerOberflaeche.getTree().setVisible(true);
 		} );
 
