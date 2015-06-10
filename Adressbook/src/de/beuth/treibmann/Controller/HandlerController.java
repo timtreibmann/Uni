@@ -22,7 +22,7 @@ public class HandlerController {
 						if ((pruefeingabecontroller.isName(t.getNewValue())) && (!t.getNewValue().equals(""))) {
 							((Contactdetails) t.getTableView().getItems().get(t.getTablePosition().getRow()))
 									.setVorname(t.getNewValue());
-							
+
 							behebeAnzeigefehler(benutzeroberflaeche);
 
 						} else {
@@ -43,7 +43,7 @@ public class HandlerController {
 				if ((pruefeingabecontroller.isName(t.getNewValue())) && (!t.getNewValue().equals(""))) {
 					((Contactdetails) t.getTableView().getItems().get(t.getTablePosition().getRow()))
 							.setName(t.getNewValue());
-					
+
 					behebeAnzeigefehler(benutzeroberflaeche);
 				} else {
 					new AlertController().sendeWarnung(new Alert(Alert.AlertType.ERROR), "Fehler",
@@ -101,8 +101,6 @@ public class HandlerController {
 				});
 	}
 
-	
-
 	public void fuegeeinEingabeFelder(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook,
 			PruefeEingabeController eingabe) {
 		benutzeroberflaeche.getAddButton().setOnAction((e) -> {
@@ -114,6 +112,7 @@ public class HandlerController {
 						benutzeroberflaeche.getAddVorName().getText(), benutzeroberflaeche.getAddAdresse().getText(),
 						benutzeroberflaeche.getAddEmail().getText(),
 						benutzeroberflaeche.getAddTelefonnummer().getText()));
+				adressbook.createObListforListView();
 				clearEingabeFeld(benutzeroberflaeche);
 			} else {
 				new AlertController().sendeWarnung(new Alert(AlertType.WARNING), "Warnung", "Falsche Eingabe",
@@ -123,19 +122,23 @@ public class HandlerController {
 		} );
 
 	}
-	public void fuegeEinBlank(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook){
-		benutzerOberflaeche.getAddbuttonBlank().setOnAction((e)->{
+
+	public void fuegeEinBlank(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
+		benutzerOberflaeche.getAddbuttonBlank().setOnAction((e) -> {
 			adressbook.getData().add(new Contactdetails("name", "vorname", "adresse", "email", "telefonnummer"));
 			adressbook.createObListforListView();
 			this.behebeAnzeigefehler(benutzerOberflaeche);
-			
-		});
+
+		} );
 	}
-	public void zeigeAnDateninConsole(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook){
-		benutzerOberflaeche.getConsolenAusgabe().setOnAction((e) ->{
-			if(benutzerOberflaeche.getTable().isEditable())System.out.println(adressbook.getData().toString());
-			if(benutzerOberflaeche.getListView().isEditable())System.out.println(adressbook.getDataList().toString());
-		});
+
+	public void zeigeAnDateninConsole(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
+		benutzerOberflaeche.getConsolenAusgabe().setOnAction((e) -> {
+			if (benutzerOberflaeche.getTable().isEditable())
+				System.out.println(adressbook.getData().toString());
+			if (benutzerOberflaeche.getListView().isEditable())
+				System.out.println(adressbook.getDataList().toString());
+		} );
 	}
 
 	public void rechtsKlicken(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
@@ -146,6 +149,9 @@ public class HandlerController {
 			if (benutzerOberflaeche.getTable().getSelectionModel().getSelectedItem() != null) {
 				adressbook.getData().remove(benutzerOberflaeche.getTable().getSelectionModel().getSelectedItem());
 				benutzerOberflaeche.getTable().getSelectionModel().clearSelection();
+			} else if (benutzerOberflaeche.getListView().getSelectionModel().getSelectedItem() != null) {
+				adressbook.getData().remove(benutzerOberflaeche.getListView().getSelectionModel().getSelectedIndex());
+				adressbook.createObListforListView();
 			} else {
 				new AlertController().sendeWarnung(new Alert(AlertType.ERROR), "Fehler", "Fehler bei Löschvorgang",
 						"Es können nur bestehende Einträge gelöscht werden");
@@ -158,6 +164,15 @@ public class HandlerController {
 				benutzerOberflaeche.getCm().show(benutzerOberflaeche.getTable(), e.getScreenX(), e.getScreenY());
 			} else {
 				benutzerOberflaeche.getTable().getSelectionModel().clearSelection();
+				benutzerOberflaeche.getCm().hide();
+			}
+		} );
+		benutzerOberflaeche.getListView().setOnMousePressed((e) -> {
+
+			if (e.isSecondaryButtonDown()) {
+				benutzerOberflaeche.getCm().show(benutzerOberflaeche.getListView(), e.getScreenX(), e.getScreenY());
+			} else if (!e.isPrimaryButtonDown()){
+				benutzerOberflaeche.getListView().getSelectionModel().clearSelection();
 				benutzerOberflaeche.getCm().hide();
 			}
 		} );
@@ -179,7 +194,7 @@ public class HandlerController {
 	}
 
 	public void onclickMenueList(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
-		
+
 		benutzerOberflaeche.getMenueList().setOnAction((e) -> {
 			adressbook.createObListforListView();
 			benutzerOberflaeche.getContentBox().getChildren().remove(0);
