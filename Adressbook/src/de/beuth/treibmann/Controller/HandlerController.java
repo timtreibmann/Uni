@@ -187,6 +187,7 @@ public class HandlerController {
 			benutzerOberflaeche.getTable().setEditable(true);
 			benutzerOberflaeche.getListView().setEditable(false);
 			benutzerOberflaeche.getTree().setEditable(false);
+			benutzerOberflaeche.getTableappointment().setVisible(false);
 			benutzerOberflaeche.getTable().setVisible(true);
 
 		} );
@@ -202,7 +203,9 @@ public class HandlerController {
 			benutzerOberflaeche.getListView().setEditable(true);
 			benutzerOberflaeche.getTable().setEditable(false);
 			benutzerOberflaeche.getTree().setEditable(false);
+			benutzerOberflaeche.getTableappointment().setVisible(false);
 			benutzerOberflaeche.getListView().setVisible(true);
+			
 
 		} );
 
@@ -216,6 +219,22 @@ public class HandlerController {
 			benutzerOberflaeche.getListView().setEditable(false);
 			benutzerOberflaeche.getTable().setEditable(false);
 			benutzerOberflaeche.getTree().setVisible(true);
+			benutzerOberflaeche.getTableappointment().setVisible(false);
+		} );
+
+	}
+	
+	public void onclickMenueTableAppointment(BenutzerOberflaeche benutzerOberflaeche, Adressbook adressbook) {
+		benutzerOberflaeche.getMenueTableAppointment().setOnAction((e) -> {
+			benutzerOberflaeche.getContentBox().getChildren().remove(0);
+			benutzerOberflaeche.getContentBox().getChildren().add(benutzerOberflaeche.getTableappointment());
+			
+			benutzerOberflaeche.getTable().setEditable(false);
+			benutzerOberflaeche.getListView().setEditable(false);
+			benutzerOberflaeche.getTree().setEditable(false);
+			benutzerOberflaeche.getTable().setVisible(false);
+			benutzerOberflaeche.getTableappointment().setVisible(true);
+
 		} );
 
 	}

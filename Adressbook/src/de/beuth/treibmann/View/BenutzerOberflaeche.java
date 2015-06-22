@@ -2,6 +2,7 @@ package de.beuth.treibmann.View;
 
 import java.util.ArrayList;
 
+import de.beuth.treibmann.Appointment;
 import de.beuth.treibmann.Contactdetails;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -29,6 +30,7 @@ import javafx.stage.Stage;
 public class BenutzerOberflaeche extends Application {
 
 	private TableView<Contactdetails> table = new TableView<Contactdetails>();
+	private TableView<Appointment> tableappointment = new TableView<Appointment>();
 	private TextField addVorName;
 	private TextField addNachname;
 	private TextField addAdresse;
@@ -63,7 +65,14 @@ public class BenutzerOberflaeche extends Application {
 	private Button addbuttonBlank;
 	private Button consolenAusgabe;
 	private HBox hboxbuttonBlankCA;
-
+	private TableColumn startZeit;
+	private TableColumn endZeit;
+	private TableColumn gesamtDauer;
+	private TableColumn kategorie;
+	private TableColumn bezeichnung;
+	private TableColumn beschreibung;
+	private MenuItem menueTableAppointment;
+	
 	public BenutzerOberflaeche() {
 
 		scene = new Scene(new Group());
@@ -74,6 +83,7 @@ public class BenutzerOberflaeche extends Application {
 		menueTable = new MenuItem("TableView");
 		menueList = new MenuItem("ListView");
 		menueTree = new MenuItem("TreeView");
+		menueTableAppointment = new MenuItem("Appointment");
 		contentBox = new HBox();
 		hb = new HBox();
 		hboxOben = new HBox();
@@ -89,6 +99,13 @@ public class BenutzerOberflaeche extends Application {
 		adress = new TableColumn("Adresse");
 		emailCol = new TableColumn("Email");
 		telefonnumber = new TableColumn("Telefonnummer");
+		
+		startZeit = new TableColumn("Startzeit");
+		endZeit = new TableColumn("EndZeit");
+		gesamtDauer = new TableColumn("GesamtDauer");
+		kategorie = new TableColumn("Kategorie");
+		bezeichnung = new TableColumn("Bezeichnung");
+		beschreibung = new TableColumn("Beschreibung");
 
 		addVorName = new TextField();
 		addNachname = new TextField();
@@ -119,10 +136,10 @@ public class BenutzerOberflaeche extends Application {
 
 		setStage(stage);
 		menuebar.getMenus().addAll(menue);
-		menue.getItems().addAll(menueTable, menueList, menueTree);
+		menue.getItems().addAll(menueTable, menueList, menueTree, menueTableAppointment);
 
 		table.getColumns().addAll(firstNameCol, lastNameCol, adress, emailCol, telefonnumber);
-
+		tableappointment.getColumns().addAll(startZeit, endZeit, gesamtDauer, kategorie, bezeichnung, beschreibung);
 		hb.getChildren().addAll(addVorName, addNachname, addAdresse, addEmail, addTelefonnummer, addButton);
 		hb.setSpacing(3);
 
@@ -132,7 +149,7 @@ public class BenutzerOberflaeche extends Application {
 		vbox.setPadding(new Insets(10, 0, 0, 10));
 		vboxmenu.getChildren().addAll(menuebar);
 		contentBox.getChildren().addAll(table);
-		hboxbuttonBlankCA.getChildren().addAll(addbuttonBlank,consolenAusgabe);
+		hboxbuttonBlankCA.getChildren().addAll(addbuttonBlank, consolenAusgabe);
 		vbox.getChildren().addAll(vboxmenu, hboxOben, contentBox, hb, hboxbuttonBlankCA);
 
 		hboxSuper.getChildren().addAll(vbox);
@@ -157,6 +174,7 @@ public class BenutzerOberflaeche extends Application {
 		tree.setEditable(false);
 		listView.setEditable(false);
 		listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		tableappointment.setVisible(false);
 		firstNameCol.setPrefWidth(80);
 		lastNameCol.setPrefWidth(100);
 		adress.setPrefWidth(100);
@@ -481,6 +499,70 @@ public class BenutzerOberflaeche extends Application {
 
 	public void setHboxbuttonBlankCA(HBox hboxbuttonBlankCA) {
 		this.hboxbuttonBlankCA = hboxbuttonBlankCA;
+	}
+
+	public TableView<Appointment> getTableappointment() {
+		return tableappointment;
+	}
+
+	public void setTableappointment(TableView<Appointment> tableappointment) {
+		this.tableappointment = tableappointment;
+	}
+
+	public TableColumn getStartZeit() {
+		return startZeit;
+	}
+
+	public void setStartZeit(TableColumn startZeit) {
+		this.startZeit = startZeit;
+	}
+
+	public TableColumn getEndZeit() {
+		return endZeit;
+	}
+
+	public void setEndZeit(TableColumn endZeit) {
+		this.endZeit = endZeit;
+	}
+
+	public TableColumn getGesamtDauer() {
+		return gesamtDauer;
+	}
+
+	public void setGesamtDauer(TableColumn gesamtDauer) {
+		this.gesamtDauer = gesamtDauer;
+	}
+
+	public TableColumn getKategorie() {
+		return kategorie;
+	}
+
+	public void setKategorie(TableColumn kategorie) {
+		this.kategorie = kategorie;
+	}
+
+	public TableColumn getBezeichnung() {
+		return bezeichnung;
+	}
+
+	public void setBezeichnung(TableColumn bezeichnung) {
+		this.bezeichnung = bezeichnung;
+	}
+
+	public TableColumn getBeschreibung() {
+		return beschreibung;
+	}
+
+	public void setBeschreibung(TableColumn beschreibung) {
+		this.beschreibung = beschreibung;
+	}
+
+	public MenuItem getMenueTableAppointment() {
+		return menueTableAppointment;
+	}
+
+	public void setMenueTableAppointment(MenuItem menueTableAppointment) {
+		this.menueTableAppointment = menueTableAppointment;
 	}
 
 }

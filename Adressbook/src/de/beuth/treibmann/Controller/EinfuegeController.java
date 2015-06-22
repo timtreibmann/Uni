@@ -1,6 +1,10 @@
 package de.beuth.treibmann.Controller;
 
+import java.io.FileNotFoundException;
+
+import de.beuth.Treibmann.EinAusgabe.CSVAppointmentReader;
 import de.beuth.treibmann.Adressbook;
+import de.beuth.treibmann.Appointment;
 import de.beuth.treibmann.Contactdetails;
 import de.beuth.treibmann.View.BenutzerOberflaeche;
 import javafx.collections.FXCollections;
@@ -9,15 +13,35 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class EinfuegeController {
-	
-	
-	
+
+	private ObservableList<Appointment> appointmentlist = FXCollections.observableArrayList();
+
+	@SuppressWarnings("unchecked")
+	public void setAppointmentData(BenutzerOberflaeche benutzeroberflaeche, String source, String splitter)
+			throws FileNotFoundException {
+		appointmentlist.addAll(CSVAppointmentReader.readEntityList(source, splitter));
+		System.out.println(appointmentlist.toString());
+		benutzeroberflaeche.getTableappointment().setItems(appointmentlist);
+		benutzeroberflaeche.getStartZeit()
+				.setCellValueFactory(new PropertyValueFactory<Appointment, String>("startZeit"));
+		benutzeroberflaeche.getEndZeit()
+				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("endZeit"));
+		benutzeroberflaeche.getGesamtDauer()
+				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("gesamtDauer"));
+		benutzeroberflaeche.getKategorie()
+				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("kategorie"));
+		benutzeroberflaeche.getBeschreibung()
+				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("beschreibung"));
+		benutzeroberflaeche.getBezeichnung()
+				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("bezeichnung"));
+	}
+
 	@SuppressWarnings("unchecked")
 	public void setListViewData(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook) {
-	
+
 		adressbook.createObListforListView();
 		benutzeroberflaeche.getListView().setItems(adressbook.getDataList());
-		
+
 	}
 
 	public void setTreeItemData(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook) {
@@ -39,11 +63,14 @@ public class EinfuegeController {
 				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("vorname"));
 		benutzeroberflaeche.getLastNameCol()
 				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("name"));
-		benutzeroberflaeche.getAdress().setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("adresse"));
-		benutzeroberflaeche.getEmailCol().setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("email"));
+		benutzeroberflaeche.getAdress()
+				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("adresse"));
+		benutzeroberflaeche.getEmailCol()
+				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("email"));
 		benutzeroberflaeche.getTelefonnumber()
 				.setCellValueFactory(new PropertyValueFactory<Contactdetails, String>("telefonnummer"));
 	}
+
 	public void setData(BenutzerOberflaeche benutzeroberflaeche, Adressbook adressbook) {
 		setListViewData(benutzeroberflaeche, adressbook);
 		setTreeItemData(benutzeroberflaeche, adressbook);
