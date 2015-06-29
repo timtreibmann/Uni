@@ -13,6 +13,13 @@ import de.beuth.treibmann.Appointment;
 import de.beuth.treibmann.binaereEinAusgabe.InputStream;
 import de.beuth.treibmann.binaereEinAusgabe.OutputStream;
 
+/**
+ * TestKlasse für die Klassen InputStream und OutStream.
+ * 
+ * @author tim
+ *
+ */
+
 public class TestBinaerWriterReader {
 	
 	private final String path="/home/tim/Uni/Programmieren/speicherbinaer.bin";
@@ -23,6 +30,11 @@ public class TestBinaerWriterReader {
 	private Appointment listerein;
 	private Appointment listerein2;
 	
+	/**
+	 * TestsetUp erzeugen. Es wird hier bereits eine Datei geschrieben.
+	 * 
+	 * @throws FileNotFoundException
+	 */
 	@Before
 	public void setUp() throws FileNotFoundException{
 		listeraus = new Appointment(10, 20, "Kategorie", "bezeichnung", "beschreibung");
@@ -34,6 +46,10 @@ public class TestBinaerWriterReader {
 		
 	}
 
+	/**
+	 * Testet ob die geschriebene Datei die korrekten Dateien enthält. Dies
+	 * geschieht durch einlesen dieser Datei.
+	 */
 	@Test
 	public void test() {
 		try{
