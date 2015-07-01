@@ -1,5 +1,6 @@
 package de.beuth.treibmann.Controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class MainController extends Application {
 	private EinfuegeController einfuegeController;
 	private PruefeEingabeController pruefeEingabeController;
 	private static final String pfad="/home/tim/Uni/Programmieren/speicher.txt";
+	private List<Appointment> liste = new ArrayList<Appointment>();
 
 	public MainController() {
 		benutzeroberflaeche = new BenutzerOberflaeche();
@@ -40,7 +42,7 @@ public class MainController extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		benutzeroberflaeche.start(primaryStage);
-		
+		einfuegeController.setAppointmentData(benutzeroberflaeche, pfad, ":");
 		factoryController.init(benutzeroberflaeche);
 		handlerController.init(benutzeroberflaeche,adressbook, pruefeEingabeController);
 		
@@ -54,11 +56,13 @@ public class MainController extends Application {
 		handlerController.onclickMenueTableAppointment(benutzeroberflaeche, adressbook);
 		handlerController.fuegeEinBlank(benutzeroberflaeche, adressbook);
 		handlerController.zeigeAnDateninConsole(benutzeroberflaeche, adressbook);
-		List<Appointment> liste = new ArrayList<Appointment>();
+		
 		liste.add(new Appointment(10, 20, "Kategorie", "bezeichnung", "beschreibung"));
 		liste.add(new Appointment(11, 21, "Mensch", "Hübsch", "Mahan"));
+	}
+	public void onExit() throws IOException{
 		CSVContactWriter.writeEntityList(liste, pfad, ":");
-		einfuegeController.setAppointmentData(benutzeroberflaeche, pfad, ":");
+		
 		
 	}
 
